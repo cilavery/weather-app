@@ -1,6 +1,8 @@
 import React from 'react';
 
 function CurrentTemp (props) {
+    //find appropriate icon based on weather id
+
     let icon = props.id;
     let iconFont = `wi wi-owm-${icon}`;
     return (
@@ -8,7 +10,7 @@ function CurrentTemp (props) {
         <i className={iconFont}></i>
         {
           props.temp ?
-          <h2>{Math.round(props.temp)}º</h2>
+          <h1>{Math.round(props.temp)}º</h1>
           : null
         }
 
