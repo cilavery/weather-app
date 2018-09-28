@@ -1,17 +1,17 @@
 import React from 'react';
 
 function CurrentTemp (props) {
-  let temp = props.temp;
-console.log('props in currentTemp', temp)
+    let icon = props.id;
+    let iconFont = `wi wi-owm-${icon}`;
     return (
       <div>
-        <i className="wi wi-night-sleet"></i>
-      {
-        temp ?
-        (<h3>{temp}</h3>)
-        : (
-        <h3>no temp</h3>
-        )}
+        <i className={iconFont}></i>
+        {
+          props.temp ?
+          <h2>{Math.round(props.temp)}º</h2>
+          : null
+        }
+
       </div>
     )
 }

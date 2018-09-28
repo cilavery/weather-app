@@ -1,11 +1,11 @@
 import React from 'react';
 
-function LocationInfo () {
+function LocationInfo (props) {
     return (
       <div>
-        <h3>Brooklyn, New York</h3>
-        <h3>Thursday, November 3</h3>
-        <h3>Cloudy with rain</h3>
+        <h3>{props.location}</h3>
+        <h3>{props.date}</h3>
+        <h3>{props.description}</h3>
       </div>
     )
 }

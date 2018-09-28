@@ -12,7 +12,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentWeather: [],
+      temperature: 0,
+      description: [],
+      date: '',
+      location: '',
+      id: '',
       fiveDayWeather: [],
       format: 'fahrenheit'
     }
@@ -28,8 +32,13 @@ class App extends Component {
         .then(res => res.data)
         .catch(err => console.err(err))
         .then(data => {
+          console.log('dataaa', data)
           this.setState({
-            currentWeather: data.currentWeather
+            temperature: data.main.temp,
+            description: data.weather[0].main,
+            date: new Date().toString().slice(0,15),
+            location: data.name,
+            id: data.weather[0].id.toString()
           })
         })
       });
@@ -37,43 +46,34 @@ class App extends Component {
   }
 
   render() {
-    console.log('state', this.state)
 
     return (
       <div className="App">
         <h2>Today's Weather</h2>
 
-          {/* changeLocation component */}
-          <div>
-          <p>Change location</p>
-          <input type="text" placeholder="zipcode"/>
-          <button type="submit">enter</button>
-          </div>
-
-          {/* tempConversion component */}
-          <p>F | C</p>
-
-          {/* LocationInfo component */}
-          <LocationInfo
-            location={this.state.name}
-            date={this.state.dt}
-            description={this.state.weather}
-          />
-
-          {/* CurrentTemp component */}
-          {
-            this.state.currentWeather !== []
-            ? <CurrentTemp temp={this.state.main}/>
-            : null
-          }
+        {/* changeLocation component */}
+        <div>
+        <p>Change location</p>
+        <input type="text" placeholder="zipcode"/>
+        <button type="submit">enter</button>
+        </div>
 
 
-          <h4>5-Day Forecast</h4>
+        {/* LocationInfo component */}
+        <LocationInfo
+          location={this.state.location}
+          date={this.state.date}
+          description={this.state.description}
+        />
 
-          {/* fiveDayForecast component */}
-          <FiveDayForecast />
+        {/* CurrentTemp component */}
+        <CurrentTemp id={this.state.id} temp={this.state.temperature}/>
+        {/* tempConversion component */}
+        <p>F | C</p>
 
-
+        {/* fiveDayForecast component */}
+        <h4>5-Day Forecast</h4>
+        <FiveDayForecast />
       </div>
     );
   }
