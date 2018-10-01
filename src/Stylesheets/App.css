@@ -4,10 +4,14 @@ body {
   font-family: sans-serif;
 }
 
+
+/* current temperature icon */
 .current-temp i {
   font-size: 10em;
 }
 
+
+/* five-day forecast */
 .forecast {
   display: flex;
 }
@@ -18,4 +22,25 @@ body {
 
 .forecast i {
   font-size: 3em;
+}
+
+/* unit conversion toggle */
+.unit-conversion {
+  display: flex;
+  width: 35px;
+}
+
+.unit {
+  flex: 2;
+  border: 1px solid green;
+  border-radius: 10%;
+  text-align: center;
+  padding: 5px;
+  color:#e0e0e0;
+}
+
+.active {
+  border: 1px solid green;
+  background-color: green;
+  color: white;
 }

@@ -3,6 +3,7 @@ import LocationInfo from './Components/LocationInfo';
 import CurrentTemp from './Components/CurrentTemp';
 import FiveDayForecast from './Components/FiveDayForecast';
 import ChangeLocation from './Components/ChangeLocation';
+import UnitConversion from './Components/UnitConversion';
 import axios from 'axios';
 import './Stylesheets/weather-icons.css';
 import './Stylesheets/App.css';
@@ -20,10 +21,11 @@ class App extends Component {
       id: '',
       zipcode: '',
       fiveDayForecast: [],
-      format: 'imperial' //imperial = fahrenheit
+      units: 'imperial' //imperial = fahrenheit  metric = celsius
     }
 
-    this.updateLocation = this.updateLocation.bind(this)
+    this.updateLocation = this.updateLocation.bind(this);
+    this.unitConversion = this.unitConversion.bind(this);
 ;  }
 
   componentDidMount() {
@@ -33,7 +35,7 @@ class App extends Component {
         let lat = position.coords.latitude;
         let long = position.coords.longitude;
 
-        axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${this.state.format}&APPID=${APIKEY}`)
+        axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
         .then(res => res.data)
         .catch(err => console.error(err))
         .then(data => {
@@ -46,12 +48,19 @@ class App extends Component {
           })
         })
 
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${this.state.format}&APPID=${APIKEY}`)
+        axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
         .then(res => res.data)
         .catch(err => console.error(err))
         .then(data => {
+          //filter the forecast to only get 5 days ahead of current day and temperature at 12 noon
+          let forecast = data.list.filter(day => {
+            let today = new Date();
+            let date = new Date(day.dt_txt);
+            let hour = date.getHours();
+            return date.getDate() !== today.getDate() && hour === 12
+          })
           this.setState({
-            fiveDayForecast: data.list
+            fiveDayForecast: forecast
           })
         })
       });
@@ -60,7 +69,7 @@ class App extends Component {
 
   updateLocation(zipcode) {
     //update data with new location
-    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode}&units=${this.state.format}&APPID=${APIKEY}`)
+    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
     .then(res => res.data)
     .catch(err => console.error(err))
     .then(data => {
@@ -72,6 +81,66 @@ class App extends Component {
         id: data.list[0].weather[0].id.toString()
       })
     })
+
+    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
+    .then(res => res.data)
+    .catch(err => console.error(err))
+    .then(data => {
+      let forecast = data.list.filter(day => {
+        let today = new Date();
+        let date = new Date(day.dt_txt);
+        let hour = date.getHours();
+        return date.getDate() !== today.getDate() && hour === 12
+      })
+      this.setState({
+        fiveDayForecast: forecast
+      })
+    })
+  }
+
+  unitConversion () {
+    //make call to convert both current temp and forecast temps after user toggles unit
+    if (this.state.units === 'imperial') {
+      let convertTemp = this.convertUnits('imperial', this.state.temperature);
+      let convertForecast = this.state.fiveDayForecast.map(day => {
+        let converted = this.convertUnits('imperial', day.main.temp);
+        day.main.temp = converted;
+        return day;
+      })
+      this.setState({
+        temperature: convertTemp,
+        units: 'metric',
+        fiveDayForecast: convertForecast
+      })
+    }
+
+    if (this.state.units === 'metric') {
+      let convertTemp = this.convertUnits('metric', this.state.temperature);
+      let convertForecast = this.state.fiveDayForecast.map(day => {
+        let converted = this.convertUnits('metric', day.main.temp);
+        day.main.temp = converted;
+        return day
+      })
+      this.setState({
+        temperature: convertTemp,
+        units: 'imperial',
+        fiveDayForecast: convertForecast
+      })
+    }
+  }
+
+  convertUnits(unit, temp) {
+     //calculation to convert this.state.temperature to celsius, set state units to celsius
+     if (unit === 'imperial') {
+      let tempFahrenheit = temp;
+      let tempCelsius = (tempFahrenheit - 32) * (5 / 9);
+      return tempCelsius;
+     } else if (unit === 'metric') {
+       //convert this.state.temperature to fahrenheit, set state units to fahrenheit
+      let tempCelsius = temp;
+      let tempFahrenheit = (tempCelsius * (9/5)) + 32;
+      return tempFahrenheit
+     }
   }
 
   render() {
@@ -97,14 +166,13 @@ class App extends Component {
         />
 
         {/* tempConversion component */}
-        <p>F | C</p>
+        <UnitConversion toggle={this.unitConversion} unit={this.state.units}/>
 
         {/* fiveDayForecast component */}
         <h4>5-Day Forecast</h4>
         <FiveDayForecast
         forecast={this.state.fiveDayForecast}
         currentDate={this.state.date}
-        tempFormat={this.state.format}
         />
       </div>
     );
