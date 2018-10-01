@@ -45,7 +45,7 @@ body {
   border-radius: 20px;
   height: 155px;
   width: 90vw;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: auto;
 }
 
@@ -88,9 +88,9 @@ body {
   border-radius: 20px;
   height: 80px;
   width: 90vw;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: auto;
-  margin-top: 1em;
+  margin-top: .8em;
 }
 
 .info-section {
@@ -100,8 +100,8 @@ body {
 /*zipcode form box */
 .change-location {
   flex: 1;
-  padding: 1em;
   text-align: center;
+  padding-top: .5em;
 }
 
 .input-box {
@@ -112,10 +112,18 @@ body {
   padding-top: 1em;
 }
 
+button {
+  margin-top: .5em;
+  border-radius: 3px;
+  background: transparent;
+  color: white;
+  padding: 8px 10px 8px 10px;
+  margin-left: 2em;
+}
 
 /* unit conversion toggle */
 .convert-unit {
-  padding: 1em;
+  padding: .5em;
   flex:1;
   align-content: center;
   text-align: center;
@@ -124,7 +132,7 @@ body {
 .unit-conversion {
   display: flex;
   width: 45px;
-  padding-top: .3em;
+  padding-top: .5em;
   margin: auto;
 }
 
