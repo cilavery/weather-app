@@ -35,7 +35,7 @@ class App extends Component {
         let lat = position.coords.latitude;
         let long = position.coords.longitude;
 
-        axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
+        axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
         .then(res => res.data)
         .catch(err => console.error(err))
         .then(data => {
@@ -48,7 +48,7 @@ class App extends Component {
           })
         })
 
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
+        axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${this.state.units}&APPID=${APIKEY}`)
         .then(res => res.data)
         .catch(err => console.error(err))
         .then(data => {
@@ -69,7 +69,7 @@ class App extends Component {
 
   updateLocation(zipcode) {
     //update data with new location
-    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
     .then(res => res.data)
     .catch(err => console.error(err))
     .then(data => {
@@ -82,7 +82,7 @@ class App extends Component {
       })
     })
 
-    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
+    axios.get(`https://api.openweathermap.org/data/2.5/forecast?zip=${zipcode},us&units=${this.state.units}&APPID=${APIKEY}`)
     .then(res => res.data)
     .catch(err => console.error(err))
     .then(data => {
