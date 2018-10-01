@@ -146,34 +146,45 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h2>Today's Weather</h2>
+        <h2 id="title">Today's Weather</h2>
 
-        {/* changeLocation component */}
-        <ChangeLocation updateLocation={this.updateLocation}/>
+        <div className="location-info">
+          {/* LocationInfo component */}
+          <LocationInfo
+            location={this.state.location}
+            date={this.state.date}
+            description={this.state.description}
+          />
+        </div>
 
 
-        {/* LocationInfo component */}
-        <LocationInfo
-          location={this.state.location}
-          date={this.state.date}
-          description={this.state.description}
-        />
+        <div className="main-body">
+          <div className="column info-edit-column">
+            {/* changeLocation component */}
+            <ChangeLocation updateLocation={this.updateLocation}/>
+            {/* tempConversion component */}
+            <UnitConversion toggle={this.unitConversion} unit={this.state.units}/>
+          </div>
 
-        {/* CurrentTemp component */}
-        <CurrentTemp
-        id={this.state.id}
-        temp={this.state.temperature}
-        />
+          <div className="column display-info-column">
+            {/* CurrentTemp component */}
+            <CurrentTemp
+            id={this.state.id}
+            temp={this.state.temperature}
+            />
+          </div>
+        </div>
 
-        {/* tempConversion component */}
-        <UnitConversion toggle={this.unitConversion} unit={this.state.units}/>
 
         {/* fiveDayForecast component */}
-        <h4>5-Day Forecast</h4>
-        <FiveDayForecast
-        forecast={this.state.fiveDayForecast}
-        currentDate={this.state.date}
-        />
+
+      <h4 className="forecast-title">5-Day Forecast:</h4>
+        <div className="forecast-box">
+          <FiveDayForecast
+          forecast={this.state.fiveDayForecast}
+          currentDate={this.state.date}
+          />
+        </div>
       </div>
     );
   }
