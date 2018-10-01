@@ -159,14 +159,7 @@ class App extends Component {
 
 
         <div className="main-body">
-          <div className="column info-edit-column">
-            {/* changeLocation component */}
-            <ChangeLocation updateLocation={this.updateLocation}/>
-            {/* tempConversion component */}
-            <UnitConversion toggle={this.unitConversion} unit={this.state.units}/>
-          </div>
-
-          <div className="column display-info-column">
+          <div className="display-info-column">
             {/* CurrentTemp component */}
             <CurrentTemp
             id={this.state.id}
@@ -185,6 +178,14 @@ class App extends Component {
           currentDate={this.state.date}
           />
         </div>
+
+        <div className="info-edit">
+          {/* changeLocation component */}
+          <ChangeLocation updateLocation={this.updateLocation}/>
+          {/* tempConversion component */}
+          <UnitConversion toggle={this.unitConversion} unit={this.state.units}/>
+        </div>
+
       </div>
     );
   }

@@ -2,8 +2,8 @@ import React from 'react';
 
 function UnitConversion (props) {
     return (
-      <div>
-        Unit:
+      <div className="convert-unit">
+        Convert Unit:
         {
           props.unit === 'imperial' ?
           <div className="unit-conversion">

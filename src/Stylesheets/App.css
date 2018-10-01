@@ -4,12 +4,12 @@ body {
   font-family: 'Courier New', Courier, monospace;
   background: #101010;
   color: white;
-  height: 700px;
+  height: 800px;
 }
 
 #title {
   text-align: center;
-  padding: 1em 2em 1em 2em;
+  padding-bottom: 1em;
 }
 
 .location-info {
@@ -30,24 +30,6 @@ body {
   margin: auto;
 }
 
-.column {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.info-edit-column {
-  margin-right: 4em;
-  flex: 1;
-  display: none;
-}
-
-.display-info-column {
-  flex: 1;
-}
-
 /* current temperature icon */
 .current-temp i {
   font-size: 10em;
@@ -63,6 +45,7 @@ body {
   border-radius: 20px;
   height: 155px;
   width: 90vw;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -93,6 +76,73 @@ body {
   padding-bottom: 3em;
 }
 
+.forecast-title {
+  padding-left: 8vw;
+}
+
+/* location and conversion section */
+.info-edit {
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  height: 80px;
+  width: 90vw;
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 1em;
+}
+
+.info-section {
+  flex: 1;
+}
+
+/*zipcode form box */
+.change-location {
+  flex: 1;
+  padding: 1em;
+  text-align: center;
+}
+
+.input-box {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+  color: white;
+  padding-top: 1em;
+}
+
+
+/* unit conversion toggle */
+.convert-unit {
+  padding: 1em;
+  flex:1;
+  align-content: center;
+  text-align: center;
+}
+
+.unit-conversion {
+  display: flex;
+  width: 45px;
+  padding-top: .3em;
+  margin: auto;
+}
+
+.unit {
+  flex: 2;
+  border: 1px solid grey;
+  text-align: center;
+  padding: 5px;
+  color: #808080;
+}
+
+.active {
+  border: 1px solid white;
+  background-color: white;
+  color: red;
+}
+
+
 @media only screen and (max-width: 600px) {
   .forecast i {
     font-size: 1.5em;
@@ -106,31 +156,15 @@ body {
     width: 90vw;
     margin: auto;
   }
-}
 
-.forecast-title {
-  padding-left: 8vw;
-}
-
-
-
-/* unit conversion toggle */
-.unit-conversion {
-  display: flex;
-  width: 35px;
-}
-
-.unit {
-  flex: 2;
-  border: 1px solid purple;
-  border-radius: 10%;
-  text-align: center;
-  padding: 5px;
-  color:#e0e0e0;
-}
-
-.active {
-  border: 1px solid green;
-  background-color: green;
-  color: white;
+  .info-edit {
+    border: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    height: 110px;
+    width: 90vw;
+    margin: auto;
+    margin-top: 1em;
+  }
 }
