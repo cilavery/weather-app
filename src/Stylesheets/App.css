@@ -4,6 +4,18 @@ body {
   font-family: sans-serif;
 }
 
-i {
-  font-size: 20vw;
+.current-temp i {
+  font-size: 10em;
+}
+
+.forecast {
+  display: flex;
+}
+
+.forecast-day {
+  flex: 5;
+}
+
+.forecast i {
+  font-size: 3em;
 }

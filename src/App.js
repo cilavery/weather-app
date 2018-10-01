@@ -19,7 +19,7 @@ class App extends Component {
       location: '',
       id: '',
       zipcode: '',
-      fiveDayWeather: [],
+      fiveDayForecast: [],
       format: 'imperial' //imperial = fahrenheit
     }
 
@@ -28,7 +28,6 @@ class App extends Component {
 
   componentDidMount() {
     //if browser has geolocation enabled
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         let lat = position.coords.latitude;
@@ -36,7 +35,7 @@ class App extends Component {
 
         axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=${this.state.format}&APPID=${APIKEY}`)
         .then(res => res.data)
-        .catch(err => console.err(err))
+        .catch(err => console.error(err))
         .then(data => {
           this.setState({
             temperature: data.main.temp,
@@ -46,29 +45,36 @@ class App extends Component {
             id: data.weather[0].id.toString()
           })
         })
+
+        axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=${this.state.format}&APPID=${APIKEY}`)
+        .then(res => res.data)
+        .catch(err => console.error(err))
+        .then(data => {
+          this.setState({
+            fiveDayForecast: data.list
+          })
+        })
       });
     }
   }
 
   updateLocation(zipcode) {
     //update data with new location
-    axios.get(`http://api.openweathermap.org/data/2.5/weather?zip=${zipcode}&units=${this.state.format}&APPID=${APIKEY}`)
+    axios.get(`http://api.openweathermap.org/data/2.5/forecast?zip=${zipcode}&units=${this.state.format}&APPID=${APIKEY}`)
     .then(res => res.data)
-    .catch(err => console.err(err))
+    .catch(err => console.error(err))
     .then(data => {
       this.setState({
-        temperature: data.main.temp,
-        description: data.weather[0].main,
+        temperature: data.list[0].main.temp,
+        description: data.list[0].weather[0].main,
         date: new Date().toString().slice(0,15),
-        location: data.name,
-        id: data.weather[0].id.toString()
+        location: data.city.name,
+        id: data.list[0].weather[0].id.toString()
       })
     })
-
   }
 
   render() {
-
     return (
       <div className="App">
         <h2>Today's Weather</h2>
@@ -95,7 +101,11 @@ class App extends Component {
 
         {/* fiveDayForecast component */}
         <h4>5-Day Forecast</h4>
-        <FiveDayForecast />
+        <FiveDayForecast
+        forecast={this.state.fiveDayForecast}
+        currentDate={this.state.date}
+        tempFormat={this.state.format}
+        />
       </div>
     );
   }
