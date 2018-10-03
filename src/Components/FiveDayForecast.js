@@ -14,7 +14,6 @@ const daysOfWeek =  {
 function FiveDayForecast (props) {
 
   let forecast = props.forecast
-  console.log('forecast', forecast)
   return (
       <div className="forecast">
         {
