@@ -6,7 +6,7 @@ Five day weather forecast is also displayed.
 The user can input a US zipcode if they wish to know the weather in another location.
 They can also choose to view the temperature unit in either fahrenheit or celsius.
 
-The deployed app can be visited at:[Weather-App](https://weather-app-cil-avery.herokuapp.com).
+The deployed app can be visited at: [Weather-App](https://weather-app-cil-avery.herokuapp.com).
 
 
 ## How to run the app locally
