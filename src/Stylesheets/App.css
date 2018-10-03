@@ -33,6 +33,7 @@ body {
 /* current temperature icon */
 .current-temp i {
   font-size: 10em;
+  padding-bottom: 25px;
 }
 
 .current-temp {

@@ -23,7 +23,7 @@ function FiveDayForecast (props) {
               <div key={day.dt} className="forecast-day">
                 <p className="forecast-day-item">{daysOfWeek[new Date(day.dt_txt).getUTCDay()]}</p>
                 <i className={` forecast-day-item wi wi-owm-${day.weather[0].id}`}></i>
-                <div className="forecast-temp forecast-day-item">{Math.round(day.main.temp)}º</div>
+                <div className="forecast-temp forecast-day-item">{Math.round(day.main.temp)}&deg;</div>
               </div>
             )
           })

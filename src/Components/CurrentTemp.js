@@ -16,7 +16,7 @@ function CurrentTemp (props) {
         <i className={iconFont}></i>
         {
           props.temp ?
-          <h1>{Math.round(props.temp)}&deg;{unit}</h1>
+          <h1 className="temperature">{Math.round(props.temp)}&deg;{unit}</h1>
           : null
         }
 
