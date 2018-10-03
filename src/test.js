@@ -4,11 +4,19 @@ import { shallow } from 'enzyme';
 import App from './App';
 import LocationInfo from './Components/LocationInfo';
 
-describe('Location Component', () => {
-  it('should output location name, date, weather description', () => {
-    let wrapper = shallow(<LocationInfo />);
-    expect(wrapper).toMatchSnapshot();
-  });
+it('test', () => {
+  expect(3).toEqual(3);
+  expect(9).toEqual(9);
+})
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+});
+
+it('renders Location Info', () => {
+  const wrapper = shallow(<App />);
+  console.log(wrapper.text())
 });
 
 //test api call

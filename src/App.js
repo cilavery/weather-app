@@ -15,7 +15,7 @@ class App extends Component {
     super(props);
     this.state = {
       temperature: 0,
-      description: [],
+      description: '',
       date: '',
       location: '',
       id: '',
@@ -53,6 +53,7 @@ class App extends Component {
         .catch(err => console.error(err))
         .then(data => {
           //filter the forecast to only get 5 days ahead of current day and temperature at 12 noon
+          console.log('date in GET', data.list)
           let forecast = data.list.filter(day => {
             let today = new Date();
             let date = new Date(day.dt_txt);
@@ -164,6 +165,7 @@ class App extends Component {
             <CurrentTemp
             id={this.state.id}
             temp={this.state.temperature}
+            unit={this.state.units}
             />
           </div>
         </div>

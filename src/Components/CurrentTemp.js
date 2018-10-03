@@ -4,12 +4,19 @@ function CurrentTemp (props) {
     //find appropriate icon based on weather id
     let icon = props.id;
     let iconFont = `wi wi-owm-${icon}`;
+    let unit;
+    if (props.unit === 'imperial') {
+      unit = 'F'
+    } else {
+      unit = 'C'
+    }
+
     return (
       <div className="current-temp">
         <i className={iconFont}></i>
         {
           props.temp ?
-          <h1>{Math.round(props.temp)}º</h1>
+          <h1>{Math.round(props.temp)}&deg;{unit}</h1>
           : null
         }
 
