@@ -13,6 +13,7 @@ class ChangeLocation extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    
     this.props.updateLocation(this.state.zipcode);
   }
 
@@ -27,13 +28,13 @@ class ChangeLocation extends Component {
       <div className="change-location">
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <label>Change location: </label>
-          <input
-          type="text"
-          name="zipcode"
-          placeholder="zipcode"
-          onChange={(e) => this.handleChange(e)}
-          className="input-box">
-          </input>
+            <input
+              type="text"
+              name="zipcode"
+              placeholder="zipcode"
+              onChange={(e) => this.handleChange(e)}
+              className="input-box">
+            </input>
           <button type="submit">Submit</button>
         </form>
       </div>
